@@ -55,6 +55,8 @@ export const MovieList = ({ SectionTitle }) => {
         <div className="flex flex-wrap justify-between place-content-between w-full h-[93%]">
           <MovieCardsLoader />
           <MovieCardsLoader />
+          <MovieCardsLoader />
+          <MovieCardsLoader />
         </div>
       </div>
     );

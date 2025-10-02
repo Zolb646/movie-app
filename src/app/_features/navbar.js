@@ -6,6 +6,9 @@ import { useEffect, useState } from "react";
 import { GenrePopUP } from "../_components/GenrePopUp";
 import Link from "next/link";
 import { SearchPopUp } from "../_components/searchPopUp";
+import { SearchLoader } from "../_components/searchLoader";
+import { useTheme } from "next-themes";
+import { GoSearch } from "react-icons/go";
 
 const options = {
   method: "GET",
@@ -20,13 +23,18 @@ export const Navbar = () => {
   const [openGenre, setOpenGenre] = useState(false);
   const [inputValue, SetInputValue] = useState("");
   const [search, setSearch] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
   const handleInput = (e) => {
     SetInputValue(e.target.value);
     console.log(inputValue);
   };
   const getMovies = async () => {
+    setLoading(true);
     if (!inputValue.trim()) {
       setSearch([]);
+      setLoading(false);
       return;
     }
     const data = await fetch(
@@ -38,10 +46,15 @@ export const Navbar = () => {
     console.log("this is search data", jsonData);
     setSearch(jsonData.results.slice(0, 5));
     console.log("search", search);
+    setLoading(false);
   };
   useEffect(() => {
     getMovies();
   }, [inputValue]);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+  if (!mounted) return null;
   return (
     <div className="w-full h-[80px] flex items-center justify-between px-20 z-20">
       <Link href={"/"}>
@@ -59,7 +72,7 @@ export const Navbar = () => {
             Genre
           </button>
           <div className="flex border px-[20px] py-[5px] shadow border-[#E4E4E7] items-center gap-[10px]">
-            <img src="/search.svg" className="size-6" />
+            <GoSearch className="text-xl text-gray-400" />
             <input
               type="text"
               placeholder="Search..."
@@ -68,18 +81,27 @@ export const Navbar = () => {
               onChange={handleInput}
               onKeyDown={(e) => {
                 if (e.key === "Enter") {
-                  {
-                    () => getMovies();
-                  }
+                  getMovies();
                 }
               }}
             />
           </div>
         </div>
         {openGenre && <GenrePopUP />}
-        {search.length > 0 && <SearchPopUp search={search} />}
+        {loading ? (
+          <SearchLoader />
+        ) : search.length > 0 ? (
+          <SearchPopUp search={search} inputValue={inputValue} />
+        ) : inputValue.trim() ? (
+          <div className="absolute top-full left-0 w-full bg-white border dark:bg-black border-gray-200 shadow rounded-lg p-4 text-center text-gray-500">
+            No results found
+          </div>
+        ) : null}
       </div>
-      <button className="shadow size-9 flex justify-center items-center border border-[#E4E4E7] rounded-lg">
+      <button
+        className="shadow size-9 flex justify-center items-center border border-[#E4E4E7] rounded-lg"
+        onClick={() => setTheme(theme === "light" ? "dark" : "light")}
+      >
         <MdOutlineNightlight />
       </button>
     </div>

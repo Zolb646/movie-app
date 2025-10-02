@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Genre } from "./Genre";
+import { GenreSmall } from "./GenreSmall";
 
 const apiLink = "https://api.themoviedb.org/3/genre/movie/list?language=en";
 
@@ -12,7 +12,7 @@ const options = {
   },
 };
 
-export const GenrePopUP = () => {
+export const GenreResults = () => {
   const [genres, setGenres] = useState([]);
 
   const getGenre = async () => {
@@ -36,16 +36,19 @@ export const GenrePopUP = () => {
   }, []);
 
   return (
-    <div className="min-h-fit w-fit bg-white border border-[#E4E4E7] rounded-lg px-6 py-7 dark:bg-black">
-      <h1 className="font-semibold text-2xl">Genres</h1>
-      <p className="text-base font-normal">See lists of movies by genre</p>
-      <div className="w-full h-8 items-center flex">
-        <div className="w-full h-0.5 border border-gray-400"></div>
+    <div className="min-h-fit w-fit bg-white  rounded-lg flex flex-col gap-5 dark:bg-black ">
+      <div>
+        <h1 className="font-semibold text-2xl">Genres</h1>
+        <p className="text-base font-normal">See lists of movies by genre</p>
       </div>
-      <div className="w-full flex flex-wrap gap-3">
+      <div className="w-full flex flex-wrap gap-4">
         {genres.length > 0 ? (
           genres.map((genre, index) => (
-            <Genre buttonText={genre.name} key={index} genreId={genre.id} />
+            <GenreSmall
+              buttonText={genre.name}
+              key={index}
+              genreId={genre.id}
+            />
           ))
         ) : (
           <p className="text-gray-500">Loading genres...</p>

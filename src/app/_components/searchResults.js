@@ -1,8 +1,9 @@
 import { SeeMoreButton } from "./seeMoreButton";
+import { SeeMoreDynamic } from "./seeMoreDynamic";
 import { SmallRating } from "./smallerrating";
 
 export const SearchResults = (props) => {
-  const { image, title, rating, year, sectionLink } = props;
+  const { image, title, rating, year, onClick } = props;
 
   return (
     <div className="w-full flex items-center gap-4 p-3 rounded-lg cursor-pointer transition">
@@ -20,7 +21,7 @@ export const SearchResults = (props) => {
 
         <div className="flex items-center justify-between text-sm text-gray-600 mt-2">
           <span className="font-semibold">{year}</span>
-          <SeeMoreButton sectionLink={sectionLink} />
+          <SeeMoreDynamic onClick={onClick} />
         </div>
       </div>
     </div>

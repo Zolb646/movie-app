@@ -37,6 +37,7 @@ export const TopRatedMovieList = (props) => {
         <SectionHeaderLoader />
         <div className="flex flex-wrap justify-between place-content-between w-full h-[93%]">
           <MovieCardsLoader />
+          <MovieCardsLoader />
         </div>
       </div>
     );

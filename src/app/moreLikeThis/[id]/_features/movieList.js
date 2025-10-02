@@ -1,10 +1,9 @@
 "use client";
-import { MovieCard } from "@/app/_components/MovieCard";
-import { MovieCardsLoader } from "@/app/_components/MovieCardsLoader";
-import { Panigation } from "@/app/_components/panigation";
 import { useEffect, useState } from "react";
+import { MovieCardsLoader } from "@/app/_components/MovieCardsLoader";
+import { MovieCard } from "@/app/_components/MovieCard";
+import { Panigation } from "@/app/_components/panigation";
 
-const apiLink = "https://api.themoviedb.org/3/movie/upcoming?language=en-US";
 const options = {
   method: "GET",
   headers: {
@@ -14,11 +13,11 @@ const options = {
   },
 };
 
-export const MovieList = ({ SectionTitle }) => {
+export const MovieList = ({ SectionTitle, id }) => {
   const [MoviesData, setMoviesData] = useState([]);
-  const [page, setPage] = useState(1);
-  const [loading, setLoading] = useState(false);
   const [totalPages, setTotalPages] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -31,15 +30,18 @@ export const MovieList = ({ SectionTitle }) => {
 
   const getData = async () => {
     setLoading(true);
-    const data = await fetch(`${apiLink}&page=${page}`, options);
+    const data = await fetch(
+      `https://api.themoviedb.org/3/movie/${id}/similar?language=en-US&page=${page}`,
+      options
+    );
     const jsonData = await data.json();
-    console.log("this is dataup", jsonData);
+    console.log("similarData", jsonData);
     setMoviesData(jsonData.results);
     setTotalPages(jsonData.total_pages);
     setLoading(false);
   };
   useEffect(() => {
-    getData(page);
+    getData();
   }, [page]);
 
   useEffect(() => {
@@ -50,7 +52,7 @@ export const MovieList = ({ SectionTitle }) => {
     return (
       <div className="w-full aspect-[1440/1960] flex px-20 flex-col justify-between">
         <div className="w-full h-9 flex justify-between items-center animate-pulse">
-          <div className="h-full w-28 bg-gray-200 rounded-lg" />
+          <div className="h-9 w-28 bg-gray-200 rounded-lg" />
         </div>
         <div className="flex flex-wrap justify-between place-content-between w-full h-[93%]">
           <MovieCardsLoader />

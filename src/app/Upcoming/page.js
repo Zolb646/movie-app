@@ -4,7 +4,7 @@ import { MovieList } from "./_features/movieList";
 
 export default function Home() {
   return (
-    <div className="w-full max-w-[1440px] mx-auto h-full flex flex-col justify-self-center overflow-hidden bg-white z-[-1] gap-9">
+    <div className="w-full max-w-[1440px] mx-auto h-full flex flex-col justify-self-center overflow-hidden bg-white z-[-1] gap-9 dark:bg-black">
       <Navbar />
       <MovieList SectionTitle={"Upcoming"} />
       <Footer />

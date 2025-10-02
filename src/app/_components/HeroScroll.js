@@ -24,7 +24,7 @@ export const Scroller = (props) => {
       <img src={movieImage} className="w-full h-full absolute z-[0]" />
       {index > 0 && (
         <button
-          className="absolute left-2.5 size-10 z-10 bg-white flex justify-center items-center rounded-4xl"
+          className="absolute left-2.5 size-10 z-10 bg-white flex justify-center items-center rounded-4xl dark:bg-[#27272a]"
           onClick={handlePrev}
         >
           <FaAngleLeft className="size-6 " />
@@ -43,7 +43,7 @@ export const Scroller = (props) => {
       </div>
       {index < total - 1 && (
         <button
-          className="absolute right-2.5 size-10 z-10 bg-white flex justify-center items-center rounded-4xl"
+          className="absolute right-2.5 size-10 z-10 bg-white flex justify-center items-center rounded-4xl dark:bg-[#27272a]"
           onClick={handleNext}
         >
           <FaAngleRight className="size-6 " />
@@ -54,7 +54,7 @@ export const Scroller = (props) => {
           <button
             key={i}
             onClick={() => setCurrentIndex(i)}
-            className={`w-3 h-3 rounded-full transition-all duration-300 ${
+            className={`w-3 h-3 rounded-full  transition-all duration-300 ${
               currentIndex === i ? "bg-white scale-125" : "bg-gray-500"
             }`}
           />

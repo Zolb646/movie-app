@@ -10,7 +10,7 @@ const options = {
       "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI4NzZiMzEwNzJlZDg5ODcwMzQxM2Y0NzkyYzZjZTdjYyIsIm5iZiI6MTczODAyNjY5NS44NCwic3ViIjoiNjc5ODJlYzc3MDJmNDkyZjQ3OGY2OGUwIiwic2NvcGVzIjpbImFwaV9yZWFkIl0sInZlcnNpb24iOjF9.k4OF9yGrhA2gZ4VKCH7KLnNBB2LIf1Quo9c3lGF6toE",
   },
 };
-export const Genre = ({ buttonText, genreId }) => {
+export const GenreSmall = ({ buttonText, genreId }) => {
   const [genreMovies, setGenreMovies] = useState([]);
   const router = useRouter();
   const handleClick = () => {
@@ -40,7 +40,7 @@ export const Genre = ({ buttonText, genreId }) => {
   }, []);
   return (
     <button
-      className="rounded-4xl shadow bg-[#f1f1f1] flex items-center px-5 py-1.5 gap-2.5 active:scale-95 text-sm dark:bg-[#27272a]"
+      className="rounded-4xl shadow bg-[#f9f9f9] flex items-center px-4 py-1 gap-2.5 active:scale-95 text-xs dark:bg-[#27272a]"
       onClick={handleClick}
     >
       {buttonText}
